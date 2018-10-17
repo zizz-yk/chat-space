@@ -7,11 +7,6 @@
 @import "./modules/chat-body";
 @import "./modules/chat-footer";
 @import "font-awesome";
+@import "./modules/user";
+@import "./modules/flash";
 
-
-.notice {
-  @include div_basic(100%, 25px, $light-blue);
-  &__text {
-    @include font_basic(#fff, 16px, null, 25px, center);
-  }
-}
