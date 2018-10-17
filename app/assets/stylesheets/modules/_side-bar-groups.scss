@@ -1,0 +1,20 @@
+.side-bar{
+  .side-bar-groups{
+    @include div_basic(300px, 85%, #2f3e51);
+    padding:0 $side-width-space;
+
+    .group-info{
+      padding:20px 0 40px 0;
+
+
+      .group-name{
+        font-size:15px;
+        padding:0 0 5px 0;
+      }
+      .group-message{
+        font-size:11px;
+      }
+
+    }
+  }
+}
