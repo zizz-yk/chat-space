@@ -1,0 +1,41 @@
+.notice
+  %p.notice__text ログインしました
+.wrapper
+  .side-bar
+    .side-bar-header
+      .user-info
+        %p.user-info__name user-name
+        %ul.edit
+          %li.edit__create-group
+            %a
+              = fa_icon("cog")
+          %li.edit__user
+            %a
+              = fa_icon("edit")
+
+    .side-bar-groups
+      = render partial: "group"
+
+  .chat
+    .chat-header
+      .header-left
+        %p.current-group-name current-group-name
+        %p.current-group-members current-group-members
+      .header-right
+        %a.header-right__edit edit
+
+    .chat-body
+      .message
+        = render partial: "messages"
+
+    .chat-footer
+      .form
+        %form
+          .input-box
+            %input.input-box__text{ type: "text", placeholder: "type a message"}
+            %label.input-box__image
+              = fa_icon("image")
+              %input.input-box__file-send{type: "file"}
+          %button.form__send-btn{type: "submit",} Send
+
+

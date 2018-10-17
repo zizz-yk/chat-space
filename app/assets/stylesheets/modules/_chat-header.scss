@@ -1,0 +1,37 @@
+.chat{
+  float:right;
+  width: calc(100vw - 300px);
+  height: 100vh;
+
+  .chat-header{
+    @include div_basic(calc(100vw - 300px), 15%, white);
+    border-bottom: #eeeeee solid 1px;
+    padding: 0 $chat-width-space;
+
+    .header-left{
+      float: left;
+
+      .current-group-name{
+        @include font_basic(#333, 20px, null, null, null);
+        padding: 35px 0 15px 0;
+      }
+      .current-group-members{
+        @include font_basic($light-gray, 12px, null, null, null);
+      }
+    }
+
+    .header-right{
+      float: right;
+      border: $light-blue solid 1px;
+      margin: 28px 0;
+      height: 40px;
+      padding: 0 20px;
+
+      &__edit{
+        @include font_basic($light-blue, null, null, 40px, null);
+      }
+    }
+
+  }
+}
+

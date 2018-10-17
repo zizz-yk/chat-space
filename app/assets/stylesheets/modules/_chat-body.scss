@@ -1,0 +1,32 @@
+.chat{
+
+  .chat-body{
+    @include div_basic(calc(100vw - 300px), calc(100vh - 15% - 90px), #AAAAAA);
+    padding: 0 $chat-width-space;
+
+    .message{
+      padding-top: 46px;
+      .message-top{
+        &__name{
+          @include font_basic($dark-gray, 16px, null, null, null);
+          float: left;
+          padding-right: 10px;
+        }
+        &__date{
+          @include font_basic($light-gray, 12px, null, null, null);
+        }
+      }
+
+      .message-bottom{
+        @include font_basic($dark-gray, 14px, null, null, null);
+        clear: both;
+      }
+
+      .image{
+        padding-bottom: 40px;
+      }
+    }
+
+  }
+}
+

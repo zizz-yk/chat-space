@@ -1,0 +1,17 @@
+@import "./reset";
+@import "./config/variable";
+@import "./mixin/basic";
+@import "./modules/side-bar-header";
+@import "./modules/side-bar-groups";
+@import "./modules/chat-header";
+@import "./modules/chat-body";
+@import "./modules/chat-footer";
+@import "font-awesome";
+
+
+.notice {
+  @include div_basic(100%, 25px, $light-blue);
+  &__text {
+    @include font_basic(#fff, 16px, null, 25px, center);
+  }
+}
