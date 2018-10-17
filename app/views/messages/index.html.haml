@@ -1,0 +1,50 @@
+Hello World!
+.wrapper
+  .side-bar
+    .side-bar-header
+      .user-info
+        %p.user-info__name user-name
+        %ul.edit
+          %li.edit__create-group create-group
+          %li.edit__user efit-user
+    .side-bar-groups
+      .group-info
+        %a
+          %p.group-name group-name
+          %p.group-message group-message
+      .group-info
+        %a
+          %p.group-name group-name
+          %p.group-message group-message
+
+  .chat
+    .chat-header
+      .header-left
+        %p.current-group-name current-group-name
+        %p.current-group-members current-group-members
+      .heaer-right
+        %a.header-right__edit edit
+    .chat-body
+      .message
+        .message-top
+          %p.message-top__name name
+          %p.message-top__date 2018/10/15
+        .message-bottom message
+        %img image
+    .chat-footer
+      %form
+        .input-box
+          %input{type: "text_field"}
+            %label{for: "image-file"}
+              %i aaa
+              %input{type: "file", id: "image-file"}
+        %input{type: "submit"}
+
+
+
+
+
+
+
+
+
