@@ -1,50 +1,41 @@
-Hello World!
+.notice
+  %p.notice__text ログインしました
 .wrapper
   .side-bar
     .side-bar-header
       .user-info
         %p.user-info__name user-name
         %ul.edit
-          %li.edit__create-group create-group
-          %li.edit__user efit-user
+          %li.edit__create-group
+            %a
+              = fa_icon("cog")
+          %li.edit__user
+            %a
+              = fa_icon("edit")
+
     .side-bar-groups
-      .group-info
-        %a
-          %p.group-name group-name
-          %p.group-message group-message
-      .group-info
-        %a
-          %p.group-name group-name
-          %p.group-message group-message
+      = render partial: "group"
 
   .chat
     .chat-header
       .header-left
         %p.current-group-name current-group-name
         %p.current-group-members current-group-members
-      .heaer-right
+      .header-right
         %a.header-right__edit edit
+
     .chat-body
       .message
-        .message-top
-          %p.message-top__name name
-          %p.message-top__date 2018/10/15
-        .message-bottom message
-        %img image
+        = render partial: "messages"
+
     .chat-footer
-      %form
-        .input-box
-          %input{type: "text_field"}
-            %label{for: "image-file"}
-              %i aaa
-              %input{type: "file", id: "image-file"}
-        %input{type: "submit"}
-
-
-
-
-
-
-
+      .form
+        %form
+          .input-box
+            %input.input-box__text{ type: "text", placeholder: "type a message"}
+            %label.input-box__image
+              = fa_icon("image")
+              %input.input-box__file-send{type: "file"}
+          %button.form__send-btn{type: "submit",} Send
 
 
