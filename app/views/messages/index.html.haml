@@ -15,6 +15,7 @@
 
     .side-bar-groups
       = render partial: "group"
+      = render partial: "shared/side_bar"
 
   .chat
     .chat-header
@@ -23,6 +24,9 @@
         %p.current-group-members current-group-members
       .header-right
         %a.header-right__edit edit
+        %a.header-right__edit
+          = link_to "/groups/1/edit", class: "header-right__edit--btn" do
+            Edit
 
     .chat-body
       .message
