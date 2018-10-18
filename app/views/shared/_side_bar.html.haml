@@ -1,0 +1,22 @@
+.side-bar
+  .side-bar-header
+    .user-info
+      %p.user-info__name
+        = current_user.name
+      %ul.edit
+        %li.edit__user
+          = link_to edit_user_path(current_user), class: "link-color" do
+            = fa_icon("gear")
+        %li.edit__create-group
+          = link_to new_group_path(current_user), class: "link-color" do
+            = fa_icon("edit")
+
+  .side-bar-groups
+    .group-info
+      - current_user.groups.each do |group|
+        = link_to group_messages_path(group), class: "link-color" do
+          .group-info__name
+            = group.name
+          .group-info__message
+            メッセージ
+
