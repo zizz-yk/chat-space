@@ -5,23 +5,18 @@
   color: white;
 
   .side-bar-header{
-    @include div_basic(300px, 15%, #253141);
+    @include div_basic(300px, 100px, $side-blue-dark);
     padding:0 $side-width-space;
-    position: relative;
 
     .user-info{
-      align-items: center;
-      width: 100%;
-      display: flex;
-      @include absolute(0, 0, $side-width-space, $side-width-space);
-
       &__name{
-        @include font_basic(null, 16px, bold, null, null);
-        float: right;
+        @include font_basic(null, 16px, bold, 100px, null);
+        float: left;
       }
 
       .edit{
-        margin-left: 100px;
+        @include font_basic(null, 16px, null, 100px, null);
+        float: right;
         &__create-group {
           float: right;
         }

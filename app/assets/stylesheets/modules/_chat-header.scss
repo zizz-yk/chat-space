@@ -4,7 +4,7 @@
   height: 100vh;
 
   .chat-header{
-    @include div_basic(calc(100vw - 300px), 15%, white);
+    @include div_basic(calc(100vw - 300px), 100px, white);
     border-bottom: #eeeeee solid 1px;
     padding: 0 $chat-width-space;
 
@@ -29,9 +29,12 @@
 
       &__edit{
         @include font_basic($light-blue, null, null, 40px, null);
+        &--btn:link, &--btn:visited{
+          color: $light-blue;
+          text-decoration: none;
+        }
       }
     }
-
   }
 }
 
