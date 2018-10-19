@@ -12,17 +12,14 @@
             Edit
 
     .chat-body
-      .message
-        = render partial: "messages"
+      = render @messages
 
     .chat-footer
       .form
-        %form
+        = form_for [@group, @message] do |f|
           .input-box
-            %input.input-box__text{ type: "text", placeholder: "type a message"}
-            %label.input-box__image
+            = f.text_field :content, class: 'input-box__text', placeholder: "type a message"
+            = f.label :image, class: 'input-box__image' do
               = fa_icon("image")
-              %input.input-box__file-send{type: "file"}
+              = f.file_field :image, class: "input-box__file"
           %button.form__send-btn{type: "submit",} Send
-
-
