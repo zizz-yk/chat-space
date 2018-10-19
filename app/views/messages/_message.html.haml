@@ -1,0 +1,12 @@
+.message
+  .message-top
+    %p.message-top__name
+      = message.user.name
+    %p.message-top__date
+      = format_posted_time(message.created_at)
+  .message-bottom
+    - if message.content.present?
+      = message.content
+    = image_tag message.image.url, class: 'message__image' if message.image.present?
+
+
