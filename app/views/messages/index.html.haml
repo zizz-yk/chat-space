@@ -4,8 +4,12 @@
   .chat
     .chat-header
       .header-left
-        %p.current-group-name current-group-name
-        %p.current-group-members current-group-members
+        %p.current-group-name
+          = @group.name
+        %p.current-group-members
+          Members:
+          - @group.users.each do |user|
+            = user.name
       .header-right
         %a.header-right__edit
           = link_to "/groups/1/edit", class: "header-right__edit--btn" do

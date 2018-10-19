@@ -3,6 +3,7 @@
     @include div_basic(300px, calc(100vh - 100px), $side-blue-light);
     padding:0 $side-width-space;
     @include font_basic(#fff, 15px);
+    overflow: auto;
 
     .group-info{
       padding-top:20px;
