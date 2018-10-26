@@ -1,8 +1,8 @@
 $(function(){
   function buildHTML(message){
 
-    var ChatMessage = (message.content)? `${message.content}` : "";
-    var ChatImage = (message.image)? `<img src="${message.image}">` : "";
+    var chatMessage = (message.content)? `${message.content}` : "";
+    var chatImage = (message.image)? `<img src="${message.image}">` : "";
 
     var html = `<div class="message">
                   <div class="message-top">
@@ -10,8 +10,8 @@ $(function(){
                     <p class="message-top__date">${message.date}</p>
                   </div>
                   <div class ="message-bottom">
-                    ${ChatMessage}
-                    ${ChatImage}
+                    ${chatMessage}
+                    ${chatImage}
                   </div>
                 </div>`;
 
