@@ -3,13 +3,12 @@ class MessagesController < ApplicationController
 
   def index
     @message = Message.new
-    @messages = @group.messages.order(created_at: :DESC).includes(:user)
+    @messages = @group.messages.includes(:user)
   end
 
   def create
     @message = @group.messages.new(message_params)
     if @message.save
-      redirect_to group_messages_path(@group), notice: 'メッセージが送信されました'
       # redirect_to group_messages_path(@group), notice: 'メッセージが送信されました'
       respond_to do |format|
         format.html { redirect_to group_messages_path(@group), notice: "メッセージを投稿しました" }
