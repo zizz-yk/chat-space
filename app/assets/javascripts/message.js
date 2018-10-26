@@ -42,6 +42,7 @@ $(function(){
     })
     .fail(function() {
       alert("通信に失敗しました");
+      $('.form__send-btn').prop('disabled', false);
     });
   });
 });
