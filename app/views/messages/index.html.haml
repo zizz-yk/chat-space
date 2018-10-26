@@ -12,7 +12,8 @@
             = user.name
       .header-right
         %a.header-right__edit
-          = link_to "Edit", "/groups/#{params[:group_id]}/edit", class: "header-right__edit--btn"
+          = link_to "Edit", edit_group_path(@group.id), class: "header-right__edit--btn"
+
 
     .chat-body
       = render @messages
