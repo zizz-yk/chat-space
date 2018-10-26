@@ -12,18 +12,18 @@
             = user.name
       .header-right
         %a.header-right__edit
-          = link_to "/groups/1/edit", class: "header-right__edit--btn" do
-            Edit
+          = link_to "Edit", edit_group_path(@group.id), class: "header-right__edit--btn"
+
 
     .chat-body
       = render @messages
 
     .chat-footer
       .form
-        = form_for [@group, @message] do |f|
+        = form_for [@group, @message], html: {id: "new_message"} do |f|
           .input-box
             = f.text_field :content, class: 'input-box__text', placeholder: "type a message"
             = f.label :image, class: 'input-box__image' do
               = fa_icon("image")
               = f.file_field :image, class: "input-box__file"
-          %button.form__send-btn{type: "submit",} Send
+          = f.submit 'Send', class: 'form__send-btn'
