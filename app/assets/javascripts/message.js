@@ -4,7 +4,7 @@ $(function(){
     var chatMessage = (message.content)? `${message.content}` : "";
     var chatImage = (message.image)? `<img src="${message.image}">` : "";
 
-    var html = `<div class="message">
+    var html = `<div class="message" data-message-id="${message.id}">
                   <div class="message-top">
                     <p class="message-top__name">${message.user_name}</p>
                     <p class="message-top__date">${message.date}</p>
@@ -44,6 +44,32 @@ $(function(){
     .always(function(){
       $('.form__send-btn').prop('disabled', false);
     });
-
   });
+
+
+
+  var interval = setInterval(function(){
+  if (window.location.href.match(/\/groups\/\d+\/messages/)) {
+
+  $.ajax({
+    type: 'GET',
+    url: location.href,
+    dataType: 'json'
+  })
+  .done(function(messages) {
+    var insertHTML = '';
+    messages.forEach(function(message) {
+      if (message.id > id ){
+        insertHTML += buildHTML(message);
+      }
+    });
+    $('.chat-body').prepend(insertHTML);
+  })
+  .fail(function(messages) {
+    alert('自動更新に失敗しました');
+  });
+  } else {
+    clearInterval(interval);
+   }} , 5000 );
+
 });
