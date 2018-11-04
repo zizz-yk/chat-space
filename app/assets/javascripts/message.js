@@ -59,9 +59,7 @@ $(function(){
   .done(function(messages) {
     var insertHTML = '';
     messages.forEach(function(message) {
-      if (message.id > id ){
-        insertHTML += buildHTML(message);
-      }
+      insertHTML += buildHTML(message);
     });
     $('.chat-body').prepend(insertHTML);
   })
