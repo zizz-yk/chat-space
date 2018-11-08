@@ -51,14 +51,14 @@ $(function(){
 
 
 
-  setInterval(function(){
+  var interval = setInterval(function(){
     var message_id = $('.message:last').attr('message_id');
     var insertHTML = '';
     if (window.location.href.match(/\/groups\/\d+\/messages/)) {
 
       $.ajax({
         type: 'GET',
-        url: location.href,
+        url: window.location.href,
         data: { message_id: message_id },
         dataType: 'json'
       })
@@ -77,6 +77,8 @@ $(function(){
       .fail(function(messages) {
         alert('自動更新に失敗しました');
       });
+    }else{
+      clearInterval(interval)
     }
   } ,5000 );
 
