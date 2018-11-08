@@ -35,7 +35,7 @@ $(function(){
     .done(function(data){
       var html = buildHTML(data);
       $('.chat-body').append(html);
-      $('.input-box__text').val('');
+      $('#new_message')[0].reset();
       $('.chat-body').animate({scrollTop: $('.chat-body')[0].scrollHeight},"first");
     })
     .fail(function(){
