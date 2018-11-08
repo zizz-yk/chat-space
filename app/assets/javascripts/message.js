@@ -52,7 +52,7 @@ $(function(){
 
 
   setInterval(function(){
-    var message_id = $('.message').last().data('message-id');
+    var message_id = $('.message:last').attr('message_id');
     var insertHTML = '';
     if (window.location.href.match(/\/groups\/\d+\/messages/)) {
 
