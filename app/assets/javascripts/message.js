@@ -1,4 +1,4 @@
-$(function(){
+$(document).on('turbolinks:load', function() {
    function buildHTML(message){
 
      var chatMessage = (message.content)? `${message.content}` : "";
@@ -31,17 +31,17 @@ $(function(){
        dataType: 'json',
        processData: false,
        contentType: false
-     })
-     .done(function(data){
-       if (data.length !== 0){
-         var html = buildHTML(data);
-         $('.chat-body').append(html);
-         $('#new_message')[0].reset();
-         $('.chat-body').animate({scrollTop: $('.chat-body')[0].scrollHeight},"first");
-       }
-     })
-     .fail(function(){
-       alert("通信に失敗しました");
+    })
+    .done(function(data){
+      if (data.length !== 0){
+        var html = buildHTML(data);
+        $('.chat-body').append(html);
+        $('#new_message')[0].reset();
+        $('.chat-body').animate({scrollTop: $('.chat-body')[0].scrollHeight},"first");
+      }
+    })
+    .fail(function(){
+      alert("通信に失敗しました");
      })
      .always(function(){
        $('.form__send-btn').prop('disabled', false);
@@ -51,33 +51,29 @@ $(function(){
 
 
 
-
    var interval = setInterval(function(){
-    var message_id = $('.message').last().data('message-id');
-    if (window.location.href.match(/\/groups\/\d+\/messages/)) {
-      $.ajax({
-        type: 'GET',
-        url: location.href,
-        data: { message_id: message_id },
-        dataType: 'json'
-      })
-       .done(function(messages) {
-        var insertHTML = '';
-          messages.forEach(function(message) {
-            insertHTML += buildHTML(message);
-          });
-        $('.chat-body').prepend(insertHTML);
-      })
-       .fail(function(messages) {
-        alert('自動更新に失敗しました');
-      });
-     } else {
-    clearInterval(interval);
-   }
-  } , 5000 );
-});
+   if (window.location.href.match(/\/groups\/\d+\/messages/)) {
 
+   $.ajax({
+     type: 'GET',
+     url: location.href,
+     dataType: 'json'
+   })
+   .done(function(messages) {
+     var insertHTML = '';
+     messages.forEach(function(message) {
+       insertHTML += buildHTML(message);
+     });
+     $('.chat-body').prepend(insertHTML);
+   })
+   .fail(function(messages) {
+     alert('自動更新に失敗しました');
+   });
+   } else {
+     clearInterval(interval);
+    }} , 5000 );
 
+ });
 
 
 
