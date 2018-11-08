@@ -68,14 +68,13 @@ $(function(){
             insertHTML += buildHTML(message);
           });
         $('.chat-body').prepend(insertHTML);
+      console.log('test');
       })
 
       .fail(function(messages) {
         alert('自動更新に失敗しました');
       });
 
-    } else {
-    clearInterval(interval);
-   }
-  } , 5000 );
+    }
+  } ,5000 );
 });
