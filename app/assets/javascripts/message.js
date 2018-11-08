@@ -52,26 +52,29 @@ $(function() {
 
 
   var interval = setInterval(function(){
-    var message_id = $('.message:last').attr('message_id');
+    var last_message_id = $('.message:last').attr('id');
     var insertHTML = '';
     if (window.location.href.match(/\/groups\/\d+\/messages/)) {
 
       $.ajax({
         type: 'GET',
         url: window.location.href,
-        data: { message_id: message_id },
+        data: { id: last_message_id },
         dataType: 'json'
       })
 
-      .done(function(messages) {
-        if (messages[0] !== undefined){
-          messages.forEach(function(message) {
-            if (message.id > message_id) {
+      .done(function(json) {
+        console.log('uuuuuuuuuu');
+        // if (messages[0] !== undefined){
+          json.forEach(function(message) {
+            // if (message.id > message_id) {
               insertHTML += buildHTML(message);
-            }
+              $('.chat-body').append(insertHTML);
+              console.log('aaaaa');
+            // }
           });
-        $('.chat-body').prepend(insertHTML);
-        }
+        // $('.chat-body').prepend(insertHTML);
+        // }
       })
 
       .fail(function(messages) {
@@ -80,6 +83,8 @@ $(function() {
     }else{
       clearInterval(interval)
     }
+    console.log('ループ');
   } ,5000 );
 
 });
+
