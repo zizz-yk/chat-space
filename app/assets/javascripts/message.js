@@ -4,7 +4,7 @@ $(function(){
     var chatMessage = (message.content)? `${message.content}` : "";
     var chatImage = (message.image)? `<img src="${message.image}">` : "";
 
-    var html = `<div class="message" data-message-id="${message.id}">
+    var html = `<div class="message" message_id="${message.id}">
                   <div class="message-top">
                     <p class="message-top__name">${message.user_name}</p>
                     <p class="message-top__date">${message.date}</p>
@@ -50,37 +50,34 @@ $(function(){
   });
 
 
-  $(function(){
-    var interval = setInterval(update, 5000);
 
-    function update() {
-      if (location.href.match(/\/groups\/\d+\/messages/)){
-        $(".chat-body").animate({scrollTop: $(".chat-body")[0].scrollHeight}, 1000, "swing");
+  setInterval(function(){
+    var message_id = $('.message').last().data('message-id');
+    var insertHTML = '';
+    if (window.location.href.match(/\/groups\/\d+\/messages/)) {
 
-        $.ajax({
-          url: location.href,
-          type: "get",
-          dataType: "json"
-        })
+      $.ajax({
+        type: 'GET',
+        url: location.href,
+        data: { message_id: message_id },
+        dataType: 'json'
+      })
 
-        .done(function(data) {
-          var id = $(".message:last").data("message-id");
-
-          data.forEach(function(message){
-            if (message.id > id){
-              var html = buildHTML(message);
-              $(".chat-body").append(html);
-              $(".chat-body").animate({scrollTop: $(".chat-body")[0].scrollHeight}, 1000, "swing");
+      .done(function(messages) {
+        if (messages[0] !== undefined){
+          messages.forEach(function(message) {
+            if (message.id > message_id) {
+              insertHTML += buildHTML(message);
             }
           });
-        })
-        .fail(function() {
-          alert("更新に失敗しました。");
-        });
-      } else {
-        clearInterval(interval);
-      }
+        $('.chat-body').prepend(insertHTML);
+        }
+      })
+
+      .fail(function(messages) {
+        alert('自動更新に失敗しました');
+      });
     }
-  });
+  } ,5000 );
 
 });
