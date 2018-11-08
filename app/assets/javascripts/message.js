@@ -52,25 +52,30 @@ $(function(){
 
 
   var interval = setInterval(function(){
-  if (window.location.href.match(/\/groups\/\d+\/messages/)) {
+    var message_id = $('.message').last().data('message-id');
+    if (window.location.href.match(/\/groups\/\d+\/messages/)) {
 
-  $.ajax({
-    type: 'GET',
-    url: location.href,
-    dataType: 'json'
-  })
-  .done(function(messages) {
-    var insertHTML = '';
-    messages.forEach(function(message) {
-      insertHTML += buildHTML(message);
-    });
-    $('.chat-body').prepend(insertHTML);
-  })
-  .fail(function(messages) {
-    alert('自動更新に失敗しました');
-  });
-  } else {
+      $.ajax({
+        type: 'GET',
+        url: location.href,
+        data: { message_id: message_id },
+        dataType: 'json'
+      })
+
+      .done(function(messages) {
+        var insertHTML = '';
+          messages.forEach(function(message) {
+            insertHTML += buildHTML(message);
+          });
+        $('.chat-body').prepend(insertHTML);
+      })
+
+      .fail(function(messages) {
+        alert('自動更新に失敗しました');
+      });
+
+    } else {
     clearInterval(interval);
-   }} , 5000 );
-
+   }
+  } , 5000 );
 });
