@@ -33,10 +33,12 @@ $(function(){
       contentType: false
     })
     .done(function(data){
-      var html = buildHTML(data);
-      $('.chat-body').append(html);
-      $('#new_message')[0].reset();
-      $('.chat-body').animate({scrollTop: $('.chat-body')[0].scrollHeight},"first");
+      if (data.length !== 0){
+        var html = buildHTML(data);
+        $('.chat-body').append(html);
+        $('#new_message')[0].reset();
+        $('.chat-body').animate({scrollTop: $('.chat-body')[0].scrollHeight},"first");
+      }
     })
     .fail(function(){
       alert("通信に失敗しました");
