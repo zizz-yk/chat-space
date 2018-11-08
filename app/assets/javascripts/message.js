@@ -50,39 +50,37 @@ $(function(){
   });
 
 
-  var message_id = $('.message').last().data('message-id');
-  var interval = setInterval(function(){
-    var insertHTML = '';
-    if (window.location.href.match(/\/groups\/\d+\/messages/)) {
+  $(function(){
+    var interval = setInterval(update, 5000);
 
-      $.ajax({
-        type: 'GET',
-        url: location.href,
-        data: { message_id: message_id },
-        dataType: 'json'
-      })
+    function update() {
+      if (location.href.match(/\/groups\/\d+\/messages/)){
+        $(".chat-body").animate({scrollTop: $(".chat-body")[0].scrollHeight}, 1000, "swing");
 
-      .done(function(messages) {
-        messages.forEach(function(message) {
-          if (message.id > message_id) {
-            console.log(message_id)
-            console.log(message.id)
-            insertHTML += buildHTML(message);
-          }
+        $.ajax({
+          url: location.href,
+          type: "get",
+          dataType: "json"
+        })
+
+        .done(function(data) {
+          var id = $(".message:last").data("message-id");
+
+          data.forEach(function(message){
+            if (message.id > id){
+              var html = buildHTML(message);
+              $(".chat-body").append(html);
+              $(".chat-body").animate({scrollTop: $(".chat-body")[0].scrollHeight}, 1000, "swing");
+            }
+          });
+        })
+        .fail(function() {
+          alert("更新に失敗しました。");
         });
-        $('.chat-body').prepend(insertHTML);
-      })
-
-      .fail(function(messages) {
-        alert('自動更新に失敗しました');
-      });
-
-    } else {
+      } else {
         clearInterval(interval);
+      }
     }
-    var message_id = $('.message').last().data('message-id');
-  } ,5000 );
-
-
+  });
 
 });
