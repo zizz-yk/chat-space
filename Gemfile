@@ -83,3 +83,5 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'loofah', '>= 2.2.3'
 gem 'fog-aws'
+gem 'jquery-turbolinks'
+
