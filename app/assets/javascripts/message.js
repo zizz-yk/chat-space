@@ -1,90 +1,84 @@
-$(function() {
-  function buildHTML(message){
+$(function(){
+   function buildHTML(message){
 
-    var chatMessage = (message.content)? `${message.content}` : "";
-    var chatImage = (message.image)? `<img src="${message.image}">` : "";
+     var chatMessage = (message.content)? `${message.content}` : "";
+     var chatImage = (message.image)? `<img src="${message.image}">` : "";
 
-    var html = `<div class="message" message_id="${message.id}">
-                  <div class="message-top">
-                    <p class="message-top__name">${message.user_name}</p>
-                    <p class="message-top__date">${message.date}</p>
-                  </div>
-                  <div class ="message-bottom">
-                    ${chatMessage}<br/>
-                    ${chatImage}
-                  </div>
-                </div>`;
+     var html = `<div class="message" data-message-id="${message.id}">
+                   <div class="message-top">
+                     <p class="message-top__name">${message.user_name}</p>
+                     <p class="message-top__date">${message.date}</p>
+                   </div>
+                   <div class ="message-bottom">
+                     ${chatMessage}<br/>
+                     ${chatImage}
+                   </div>
+                 </div>`;
 
-  return html;
-  }
-
-
-  $('#new_message').on('submit', function(e){
-    e.preventDefault();
-    var formData = new FormData(this);
-    var url = $(this).attr('action');
-
-    $.ajax({
-      url: url,
-      type: "POST",
-      data: formData,
-      dataType: 'json',
-      processData: false,
-      contentType: false
-    })
-    .done(function(data){
-      if (data.length !== 0){
-        var html = buildHTML(data);
-        $('.chat-body').append(html);
-        $('#new_message')[0].reset();
-        $('.chat-body').animate({scrollTop: $('.chat-body')[0].scrollHeight},"first");
-      }
-    })
-    .fail(function(){
-      alert("通信に失敗しました");
-    })
-    .always(function(){
-      $('.form__send-btn').prop('disabled', false);
-    });
-
-  });
+   return html;
+   }
 
 
+   $('#new_message').on('submit', function(e){
+     e.preventDefault();
+     var formData = new FormData(this);
+     var url = $(this).attr('action');
 
-  var interval = setInterval(function(){
-    var last_message_id = $('.message:last').attr('id');
-    var insertHTML = '';
+     $.ajax({
+       url: url,
+       type: "POST",
+       data: formData,
+       dataType: 'json',
+       processData: false,
+       contentType: false
+     })
+     .done(function(data){
+       if (data.length !== 0){
+         var html = buildHTML(data);
+         $('.chat-body').append(html);
+         $('#new_message')[0].reset();
+         $('.chat-body').animate({scrollTop: $('.chat-body')[0].scrollHeight},"first");
+       }
+     })
+     .fail(function(){
+       alert("通信に失敗しました");
+     })
+     .always(function(){
+       $('.form__send-btn').prop('disabled', false);
+     });
+
+   });
+
+
+
+
+   var interval = setInterval(function(){
+    var message_id = $('.message').last().data('message-id');
     if (window.location.href.match(/\/groups\/\d+\/messages/)) {
-
       $.ajax({
         type: 'GET',
-        url: window.location.href,
-        data: { id: last_message_id },
+        url: location.href,
+        data: { message_id: message_id },
         dataType: 'json'
       })
-
-      .done(function(json) {
-        console.log('uuuuuuuuuu');
-        // if (messages[0] !== undefined){
-          json.forEach(function(message) {
-            // if (message.id > message_id) {
-              insertHTML += buildHTML(message);
-              $('.chat-body').append(insertHTML);
-              console.log('aaaaa');
-            // }
+       .done(function(messages) {
+        var insertHTML = '';
+          messages.forEach(function(message) {
+            insertHTML += buildHTML(message);
           });
-        // $('.chat-body').prepend(insertHTML);
-        // }
+        $('.chat-body').prepend(insertHTML);
       })
-
-      .fail(function(messages) {
+       .fail(function(messages) {
         alert('自動更新に失敗しました');
       });
-    }else{
-      clearInterval(interval)
-    }
-    console.log('ループ');
-  } ,5000 );
-
+     } else {
+    clearInterval(interval);
+   }
+  } , 5000 );
 });
+
+
+
+
+
 
