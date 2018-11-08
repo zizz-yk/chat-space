@@ -10,7 +10,7 @@ $(function(){
                     <p class="message-top__date">${message.date}</p>
                   </div>
                   <div class ="message-bottom">
-                    ${chatMessage}
+                    ${chatMessage}<br/>
                     ${chatImage}
                   </div>
                 </div>`;
@@ -44,6 +44,7 @@ $(function(){
     .always(function(){
       $('.form__send-btn').prop('disabled', false);
     });
+
   });
 
 
