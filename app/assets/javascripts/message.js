@@ -1,10 +1,10 @@
-$(function(){
+$(function() {
   function buildHTML(message){
 
     var chatMessage = (message.content)? `${message.content}` : "";
     var chatImage = (message.image)? `<img src="${message.image}">` : "";
 
-    var html = `<div class="message" data-message-id="${message.id}">
+    var html = `<div class="message" message_id="${message.id}">
                   <div class="message-top">
                     <p class="message-top__name">${message.user_name}</p>
                     <p class="message-top__date">${message.date}</p>
@@ -33,10 +33,12 @@ $(function(){
       contentType: false
     })
     .done(function(data){
-      var html = buildHTML(data);
-      $('.chat-body').append(html);
-      $('.input-box__text').val('');
-      $('.chat-body').animate({scrollTop: $('.chat-body')[0].scrollHeight},"first");
+      if (data.length !== 0){
+        var html = buildHTML(data);
+        $('.chat-body').append(html);
+        $('#new_message')[0].reset();
+        $('.chat-body').animate({scrollTop: $('.chat-body')[0].scrollHeight},"first");
+      }
     })
     .fail(function(){
       alert("通信に失敗しました");
@@ -46,6 +48,7 @@ $(function(){
     });
 
   });
+
 
 
 
