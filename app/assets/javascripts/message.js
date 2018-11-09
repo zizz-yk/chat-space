@@ -1,6 +1,5 @@
-$(function() {
+$(document).on('turbolinks:load', function() {
   function buildHTML(message){
-
     var chatMessage = (message.content)? `${message.content}` : "";
     var chatImage = (message.image)? `<img src="${message.image}">` : "";
 
@@ -14,7 +13,6 @@ $(function() {
                     ${chatImage}
                   </div>
                 </div>`;
-
   return html;
   }
 
@@ -54,24 +52,32 @@ $(function() {
 
   var interval = setInterval(function(){
   if (window.location.href.match(/\/groups\/\d+\/messages/)) {
-
+    var last_message_id = $('.message:last').attr('message_id');
   $.ajax({
     type: 'GET',
     url: location.href,
+    data: { id: last_message_id },
     dataType: 'json'
   })
   .done(function(messages) {
+    console.log(messages)
     var insertHTML = '';
-    messages.forEach(function(message) {
-      insertHTML += buildHTML(message);
-    });
-    $('.chat-body').prepend(insertHTML);
+    if (messages.length !== 0){
+      messages.forEach(function(message) {
+        console.log('hey')
+        insertHTML = buildHTML(message);
+        $('.chat-body').append(insertHTML);
+      });
+       $('.chat-body').animate({scrollTop: $('.chat-body')[0].scrollHeight},"first");
+    }
   })
   .fail(function(messages) {
     alert('自動更新に失敗しました');
   });
   } else {
     clearInterval(interval);
-   }} , 5000 );
+    console.log('clearinterval');
+   }
+ } , 5000 );
 
 });
